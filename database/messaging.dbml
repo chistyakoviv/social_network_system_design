@@ -1,0 +1,26 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table Message {
+  id integer [primary key]
+  author_id integer
+  chat_id integer
+  is_read tinyint
+}
+
+// Table Chat includes private chats
+// between two participants and
+// group chats with many members.
+Table Chat {
+  id integer [primary key]
+  name varchar
+}
+
+Table Member {
+  id integer [primary key]
+  user_id integer
+  chat_id integer
+}
+
+Ref: Message.chat_id > Chat.id
+Ref: Member.chat_id > Chat.id

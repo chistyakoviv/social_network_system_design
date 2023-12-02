@@ -1,0 +1,50 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table Post {
+  id integer [primary key]
+  description text
+  likes interger
+  views integer
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table Comment {
+  id integer [primary key]
+  user_id integer [note: 'Users are located in the profile']
+  post_id integer
+  text text
+  created_at timestamp
+  updated_at timestamp
+}
+
+// Each post can have many comments
+// Each user can have many comments
+Ref: Comment.post_id > Post.id
+
+Table Hashtag {
+  id integer [primary key]
+  word varchar
+}
+
+Table PostHashtag {
+  id integer [primary key]
+  post_id integer
+  hashtag_id integer
+}
+
+// Each post can have many hashtags
+// Each hashtag can belong to many posts
+Ref: Post.id < PostHashtag.post_id
+Ref: Hashtag.id < PostHashtag.hashtag_id
+
+Table PostFile {
+  id integer [primary key]
+  post_id integer
+  file_id integer [note: 'Files are located in the file storage']
+}
+
+// Each post can have many media files
+// Each file can belong to one post
+Ref: Post.id < PostFile.post_id
