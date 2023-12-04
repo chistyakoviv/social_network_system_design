@@ -1,0 +1,22 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+// Table friend simulates edges
+// in a Graph Database.
+// Since edges in such database
+// are undirected, we store two
+// records for each edge. One from
+// node i to node j and the other
+// from node j to node i (i <> j).
+Table Friend {
+  id integer [primary key]
+  from_id integer
+  to_id integer
+}
+
+// Same technique for subscribers
+Table Subscriber {
+  id integer [primary key]
+  from_id integer
+  to_id integer
+}

@@ -6,9 +6,9 @@
   <h3 align="center">Social Network System Design</h3>
 
   <p align="center">
-    Sobial Network API for a System Design Course
+    Social Network API for a System Design Course
     <br />
-    <a href="https://github.com/chistyakoviv/social_network_system_design"><strong>Explore the project »</strong></a>
+    <a href="https://github.com/chistyakoviv/social_network_system_design/api/rest_api.yml"><strong>Explore the project »</strong></a>
     <br />
     <br />
     <a href="https://github.com/chistyakoviv/social_network_system_design/issues">Report Bug</a>
