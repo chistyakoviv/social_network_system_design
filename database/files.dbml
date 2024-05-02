@@ -1,6 +1,13 @@
 // Use DBML to define your database structure
 // Docs: https://dbml.dbdiagram.io/docs
 
+// Replication:
+// - master-slave (one sync + async)
+// - replication factor 3
+//
+// Sharding:
+// - key based by file id
+
 Table File {
   id integer [primary key]
   type enum

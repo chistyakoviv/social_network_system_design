@@ -1,6 +1,13 @@
 // Use DBML to define your database structure
 // Docs: https://dbml.dbdiagram.io/docs
 
+// Replication:
+// - master-slave (one sync + async)
+// - replication factor 3
+//
+// Sharding:
+// - key based by id
+
 // Table friend simulates edges
 // in a Graph Database.
 // Since edges in such database

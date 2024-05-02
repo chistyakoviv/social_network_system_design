@@ -1,6 +1,13 @@
 // Use DBML to define your database structure
 // Docs: https://dbml.dbdiagram.io/docs
 
+// Replication:
+// - master-slave (one sync + async)
+// - replication factor 3
+//
+// Sharding:
+// - key based by chat id
+
 Table Message {
   id integer [primary key]
   author_id integer
