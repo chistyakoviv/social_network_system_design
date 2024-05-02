@@ -1,0 +1,512 @@
+openapi: 3.0.3
+info:
+  title: Swagger Social Network - OpenAPI 3.0
+  license:
+    name: MIT
+  version: 1.0.11
+servers:
+  - url: https://example.com/api
+tags:
+  - name: friend
+    description: Everything about Friends
+  - name: user
+    description: Everything about Users
+  - name: post
+    description: Everything about Posts
+  - name: feed
+    description: Everything about Feed
+  - name: dialog
+    description: Everything about Dialogs
+  - name: chat
+    description: Everything about Chats
+paths:
+  /friend/{friendId}/add:
+    put:
+      tags:
+        - friend
+      summary: Add a new friend
+      description: Add a new friend
+      operationId: addFriend
+      parameters:
+        - name: api_key
+          in: header
+          description: ''
+          required: false
+          schema:
+            type: string
+        - name: friendId
+          in: path
+          description: ID of friend to add
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid friend ID
+      security:
+        - api_key: []
+  /friend/{friendId}/delete:
+    delete:
+      tags:
+        - friend
+      summary: Delete a friend
+      description: Delete a friend
+      operationId: deleteFriend
+      parameters:
+        - name: api_key
+          in: header
+          description: ''
+          required: false
+          schema:
+            type: string
+        - name: friendId
+          in: path
+          description: ID of friend to add
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid friend ID
+      security:
+        - api_key: []
+  /user/{userId}/friends:
+    get:
+      tags:
+        - user
+      summary: Show user friends
+      description: Show user friends
+      operationId: showUserFriends
+      parameters:
+        - name: userId
+          in: path
+          description: ID of user to show friends
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found
+  /user/{userId}:
+    get:
+      tags:
+        - user
+      summary: Show info about user
+      description: Show info about user
+      operationId: showUserInfo
+      parameters:
+        - name: userId
+          in: path
+          description: ID of user to show info about
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found
+  /post/{postId}/publish:
+    put:
+      tags:
+        - post
+      summary: Publish a drafted post
+      description: Publish a drafted post
+      operationId: publishPost
+      parameters:
+        - name: api_key
+          in: header
+          description: ''
+          required: false
+          schema:
+            type: string
+        - name: postId
+          in: path
+          description: ID of post to publish
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+        '404':
+          description: Post not found
+      security:
+        - api_key: []
+  /post/{postId}/upload:
+    put:
+      tags:
+        - post
+      summary: Uploads a media file for a post
+      description: ''
+      operationId: uploadFile
+      parameters:
+        - name: api_key
+          in: header
+          description: ''
+          required: false
+          schema:
+            type: string
+        - name: postId
+          in: path
+          description: ID of post to upload file for
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+      responses:
+        '200':
+          description: successful operation
+      security:
+        - api_key: []
+  /feed:
+    get:
+      tags:
+        - feed
+      summary: Show my feed
+      description: Show my feed
+      operationId: getMyFeed
+      parameters:
+        - name: api_key
+          in: header
+          description: ''
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Post'
+      security:
+        - api_key: []
+  /feed/{userId}:
+    get:
+      tags:
+        - feed
+      summary: Show user feed
+      description: Show user feed
+      operationId: getUserFeed
+      parameters:
+        - name: userId
+          in: path
+          description: ID of user to show feed for
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Post'
+        '404':
+          description: User not found
+  /dialogs:
+    get:
+      tags:
+        - dialog
+      summary: Show user dialogs
+      description: Show user dialogs
+      operationId: getUserDialogs
+      parameters:
+        - name: api_key
+          in: header
+          description: ''
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Dialog'
+      security:
+        - api_key: []
+  /dialog/{dialogId}:
+    get:
+      tags:
+        - dialog
+      summary: Show dialog messages
+      description: Show dialog messages
+      operationId: getDialogMessages
+      parameters:
+        - name: api_key
+          in: header
+          description: ''
+          required: false
+          schema:
+            type: string
+        - name: dialogId
+          in: path
+          description: ID of dialog to show messages for
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: offset
+          in: query
+          description: Offset to show messages from
+          required: false
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Message'
+        '400':
+          description: Invalid offset
+        '404':
+          description: Dialog not found
+      security:
+        - api_key: []
+  /dialog/{dialogId}/add:
+    put:
+      tags:
+        - dialog
+      summary: Add a new message to a dialog
+      description: Add a new message to a dialog
+      operationId: addMessageToDialog
+      parameters:
+        - name: api_key
+          in: header
+          description: ''
+          required: false
+          schema:
+            type: string
+        - name: dialogId
+          in: path
+          description: ID of dialog to show messages for
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: text
+          in: query
+          description: Message text
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+      security:
+        - api_key: []
+  /chats:
+    get:
+      tags:
+        - chat
+      summary: Show user chats
+      description: Show user chats
+      operationId: getUserChats
+      parameters:
+        - name: api_key
+          in: header
+          description: ''
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Chat'
+      security:
+        - api_key: []
+  /chat/{chatId}:
+    get:
+      tags:
+        - chat
+      summary: Show chat messages
+      description: Show chat messages
+      operationId: getChatMessages
+      parameters:
+        - name: api_key
+          in: header
+          description: ''
+          required: false
+          schema:
+            type: string
+        - name: chatId
+          in: path
+          description: ID of chat to show messages for
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: offset
+          in: query
+          description: Offset to show messages from
+          required: false
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Message'
+        '400':
+          description: Invalid offset
+        '404':
+          description: Chat not found
+      security:
+        - api_key: []
+  /chat/{chatId}/add:
+    put:
+      tags:
+        - chat
+      summary: Add a new message to a chat
+      description: Add a new message to a chat
+      operationId: addMessageToChat
+      parameters:
+        - name: api_key
+          in: header
+          description: ''
+          required: false
+          schema:
+            type: string
+        - name: chatId
+          in: path
+          description: ID of dialog to show messages for
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: text
+          in: query
+          description: Message text
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+      security:
+        - api_key: []
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 100000
+        name:
+          type: string
+          example: Donald Trump
+      xml:
+        name: user
+    Post:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 100000
+        title:
+          type: string
+          example: Breaking news
+        content:
+          type: string
+          example: Emergency news
+      xml:
+        name: post
+    Dialog:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 100000
+        name:
+          type: string
+          example: dialog with Donald
+    Chat:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 100000
+        name:
+          type: string
+          example: Colleagues
+    Message:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 100000
+        author:
+          type: string
+          example: Donald
+        text:
+          type: string
+          example: No pain no gain
+  securitySchemes:
+    auth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://example.com/oauth/authorize
+          scopes:
+            write: modify data in your account
+            read: read data in your account
+    api_key:
+      type: apiKey
+      name: api_key
+      in: header

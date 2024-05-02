@@ -1,0 +1,52 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+// Replication:
+// - master-slave (one sync + async)
+// - replication factor 3
+//
+// Sharding:
+// - key based by file id
+
+Table File {
+  id integer [primary key]
+  type enum
+  created_at timestamp
+}
+
+Table Image {
+  id integer [primary key]
+  file_id integer
+  path varchar
+  size integer
+  width integer
+  height integer
+  format varchar
+}
+
+Table Audio {
+  id integer [primary key]
+  file_id integer
+  path varchar
+  size integer
+  bitrate integer
+  duration integer
+  format varchar
+}
+
+Table Video {
+  id integer [primary key]
+  file_id integer
+  path varchar
+  size integer
+  framerate integer
+  duration integer
+  width integer
+  height integer
+  codec varchar
+  format varchar
+}
+
+Ref: Image.id > File.id
+Ref: Audio.id > File.id
+Ref: Video.id > File.id
