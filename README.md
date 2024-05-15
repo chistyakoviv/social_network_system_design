@@ -21,7 +21,57 @@
   - 10 000 000 DAU
   - availability 99,95%
   - service operation time 5 years
-  - on average, each user is visited 20 times a day
+  - each user writes 2 messages a day
+  - each user reads 10 messages a day
+  - each user publishes 1 post a week
+  - each user reads 10 posts a week
+  - maximum post length is 1000 characters
+  - maximum message length is 1000 characters
+  - maximum media file size is 5 MB
+
+  ## Basic calculations
+
+  Messages RPS (read):
+
+    DAU = 10 000 000
+    Each user reads 10 messages per day
+    RPS = 10 000 000 / 86 400 * 10 ~= 1160
+
+  Messages RPS (write):
+
+    DAU = 10 000 000
+    Each user writes 2 messages per day
+    RPS = 10 000 000 / 86 400 * 2 ~= 232
+
+  Posts RPS (read):
+
+    DAU = 10 000 000
+    Each user reads 10 posts per week
+    RPS = 10 000 000 / 86 400 / 7 * 10 ~= 165
+
+  Posts traffic (incoming):
+
+    DAU = 10 000 000
+    Each user publishes 1 post a week
+    Maximum post length is 1000 characters
+    Maximum media file size is 5 MB
+    One post size = 2 KB + 5 MB ~= 5.2 MB
+    Incoming traffic per second = 10 000 000 / 86 400 / 7 * 5.2 ~= 86 MB/s
+
+  Number of disks:
+
+    Total posts memory for 5 years = 86 * 86 400 * 365 * 5 ~= 13 PB (petabyte)
+    Number of 12 TB HDD disks = 13 000 / 12 ~= 1 084
+
+  Required memory:
+
+    DAU = 10 000 000
+    Each user writes 2 messages per day
+    Service operation time 5 years
+    Maximum message length is 1000 characters
+    Sent messages for 5 years = 2 * 365 * 5 ~= 3650
+    Message size ~= 2 KB
+    Database size = 2 * 3650 ~= 7.3 MB
 
 <br>
 <p align="center">
