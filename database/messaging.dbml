@@ -29,5 +29,24 @@ Table Member {
   chat_id integer
 }
 
+Table LastSeen {
+  member_id integer
+  chat_id integer
+  message_id integer
+}
+
+// In order find the messages that are not read,
+// compare message id from the LastMessage table with
+// message id of the LastSeen Table
+Table LastMessage {
+  chat_id integer
+  message_id integer
+}
+
 Ref: Message.chat_id > Chat.id
 Ref: Member.chat_id > Chat.id
+Ref: LastSeen.member_id > Member.id
+Ref: LastSeen.chat_id > Chat.id
+Ref: LastSeen.message_id > Message.id
+Ref: LastMessage.chat_id > Chat.id
+Ref: LastMessage.message_id > Message.id
