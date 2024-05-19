@@ -28,6 +28,24 @@
   - maximum post length is 1000 characters
   - maximum message length is 1000 characters
   - maximum media file size is 5 MB
+  - the number of media files attached to a post is limited to 1
+
+  ## Design overview
+
+  For system design I have  used [C4 model](https://c4model.com/). The C4 model was created as a way 
+  to help software development teams describe and communicate software 
+  architecture, both during up-front design sessions and when retrospectively 
+  documenting an existing codebase. It's a way to create maps of your code, 
+  at various levels of detail, in the same way you would use something like 
+  Google Maps to zoom in and out of an area you are interested in.
+
+  <p align="center">
+      </br><b>Level 1.</b> System context diagram</br></br>
+  </p>
+
+  <p align="center">
+    <img src="images/containers/c1.svg" />
+  </p>
 
   ## Basic calculations
 
