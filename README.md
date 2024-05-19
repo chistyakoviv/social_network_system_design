@@ -28,6 +28,7 @@
   - maximum post length is 1000 characters
   - maximum message length is 1000 characters
   - maximum media file size is 5 MB
+  - the number of media files attached to a post is limited to 1
 
   ## Basic calculations
 
