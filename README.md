@@ -44,7 +44,7 @@
   </p>
 
   <p align="center">
-    <img src="images/containers/c1.svg" />
+    <img src="images/diagrams/context.svg" />
   </p>
 
   ## Basic calculations

@@ -1,0 +1,13 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+Person(user, "User", "Social Network User")
+System(socialNetwork, "Social Network System", "Social Network")
+System(analytics, "Analytics System", "Stores different analytic information about users")
+System_Ext(email, "E-mail system", "An external e-mail system")
+
+Rel(user, socialNetwork, "User makes request to")
+Rel(socialNetwork, analytics, "Puts information about users to, and gets information about users using")
+Rel(socialNetwork, email, "Sends emails using")
+Rel(email, user, "Sends emails to")
+@enduml
