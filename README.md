@@ -32,7 +32,7 @@
 
   ## Design overview
 
-  For system design I have  used [C4 model](https://c4model.com/). The C4 model was created as a way 
+  For system design I have used [C4 model](https://c4model.com/). The C4 model was created as a way 
   to help software development teams describe and communicate software 
   architecture, both during up-front design sessions and when retrospectively 
   documenting an existing codebase. It's a way to create maps of your code, 
