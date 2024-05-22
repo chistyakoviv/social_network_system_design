@@ -32,7 +32,7 @@
 
   ## Design overview
 
-  For system design I have  used [C4 model](https://c4model.com/). The C4 model was created as a way 
+  For system design I have used [C4 model](https://c4model.com/). The C4 model was created as a way 
   to help software development teams describe and communicate software 
   architecture, both during up-front design sessions and when retrospectively 
   documenting an existing codebase. It's a way to create maps of your code, 
@@ -44,7 +44,15 @@
   </p>
 
   <p align="center">
-    <img src="images/containers/c1.svg" />
+    <img src="images/diagrams/context.svg" />
+  </p>
+
+  <p align="center">
+      </br><b>Level 2.</b> Social Network container diagram</br></br>
+  </p> 
+
+  <p align="center">
+    <img src="images/diagrams/containers/social_network.svg" />
   </p>
 
   ## Basic calculations
