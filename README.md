@@ -47,6 +47,14 @@
     <img src="images/diagrams/context.svg" />
   </p>
 
+  <p align="center">
+      </br><b>Level 2.</b> Social Network container diagram</br></br>
+  </p> 
+
+  <p align="center">
+    <img src="images/diagrams/containers/social_network.svg" />
+  </p>
+
   ## Basic calculations
 
   Messages RPS (read):

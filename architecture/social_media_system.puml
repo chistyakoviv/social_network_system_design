@@ -1,0 +1,57 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+Person(user, "User", "Social Network User")
+System(analytics, "Analytics System", "Stores different analytic information about users")
+System_Ext(email, "E-mail system", "An external e-mail system")
+ContainerQueue(messageQueue, "Events queue", "Kafka", "Message queue for events from social network system")
+
+System_Boundary(socialNetwork, "Social Network") {
+    Container(spa, "Single-Page Application", "Typescript, Nextjs", "Provides the static content and all the social network functionality to users via their web browser")
+    Container(api, "Api Gateway", "Go", "Provides social network functionality via API")
+
+    Container(filesService, "Files Service", "Go", "Handles files")
+    ContainerDb(filesDatabase, "Files database", "Amazon S3")
+
+    Container(messagingService, "Messaging service", "Go", "Handles messages")
+    ContainerDb(messagingDatabase, "Messaging database", "PgSQL", "Stores messages")
+
+    Container(postsService, "Post service", "Go", "Handles posts")
+    ContainerDb(postsDatabase, "Post database", "PgSQL", "Stores posts")
+
+    Container(profilesService, "Profile Service", "Go", "Handles users")
+    ContainerDb(profilesDatabase, "Profile database", "MongoDB", "Stores information about users")
+
+    Container(relationsService, "Relations service", "Go", "Handles relations")
+    ContainerDb(relationsDatabase, "Relations database", "Neo4j", "Stores relations")
+}
+
+Rel(user, spa, "Uses", "HTTPS")
+Rel(email, user, "Sends emails to")
+Rel(spa, api, "Uses", "HTTPS")
+
+Rel(api, filesService, "Gets data from", "HTTPS")
+Rel(api, messagingService, "Gets data from", "HTTPS")
+Rel(api, postsService, "Gets data from", "HTTPS")
+Rel(api, profilesService, "Gets data from", "HTTPS")
+Rel(api, relationsService, "Gets data from", "HTTPS")
+
+Rel(filesService, filesDatabase, "Reads/Writes")
+
+Rel(messagingService, messagingDatabase, "Reads/Writes")
+Rel(messagingService, email, "Sends emails using")
+Rel(messagingService, messageQueue, "Sends message events")
+
+Rel(postsService, postsDatabase, "Reads/Writes")
+Rel(postsService, email, "Sends emails using")
+Rel(postsService, messageQueue, "Sends posts events")
+
+Rel(profilesService, profilesDatabase, "Reads/Writes")
+Rel(profilesService, email, "Sends emails using")
+Rel(profilesService, messageQueue, "Sends users events")
+
+Rel(relationsService, relationsDatabase, "Reads/Writes")
+Rel(relationsService, messageQueue, "Sends relation events")
+
+Rel(analyticsSystem, messageQueue, "Subscribes on events from social network system")
+@enduml
