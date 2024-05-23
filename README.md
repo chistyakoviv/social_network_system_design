@@ -99,7 +99,7 @@
     Message size ~= 2 KB
     Database size = 2 * 3650 ~= 7.3 MB
 
-<br>
+<br />
 <p align="center">
   Social Network API for a System Design Course
   <br />
