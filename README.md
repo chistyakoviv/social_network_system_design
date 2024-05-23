@@ -103,7 +103,7 @@
 <p align="center">
   Social Network API for a System Design Course
   <br />
-  <a href="https://github.com/chistyakoviv/social_network_system_design/api/rest_api.yml"><strong>Explore the project »</strong></a>
+  <a href="api/rest_api.yml"><strong>Explore the project »</strong></a>
   <br />
   <br />
   <a href="https://github.com/chistyakoviv/social_network_system_design/issues">Report Bug</a>
