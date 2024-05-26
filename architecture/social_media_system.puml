@@ -2,8 +2,8 @@
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
 Person(user, "User", "Social Network User")
-System(analytics, "Analytics System", "Stores different analytic information about users")
-System_Ext(email, "E-mail system", "An external e-mail system")
+System(analytics, "Analytics", "Stores different analytic information about users")
+System_Ext(email, "E-mail", "An external e-mail system")
 ContainerQueue(messageQueue, "Events queue", "Kafka", "Message queue for events from social network system")
 
 System_Boundary(socialNetwork, "Social Network") {

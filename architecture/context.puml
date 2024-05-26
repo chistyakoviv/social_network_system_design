@@ -2,8 +2,8 @@
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
 Person(user, "User", "Social Network User")
-System(socialNetwork, "Social Network System", "Social Network")
-System(analytics, "Analytics System", "Stores different analytic information about users")
+System(socialNetwork, "Social Network", "Social Network")
+System(analytics, "Analytics", "Stores different analytic information about users")
 System_Ext(email, "E-mail system", "An external e-mail system")
 
 Rel(user, socialNetwork, "User makes request to")
