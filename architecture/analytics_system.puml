@@ -1,0 +1,24 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+Person(user, "User", "Social Network User")
+System(socialNetwork, "Social Network", "Social Network")
+System_Ext(email, "E-mail", "An external e-mail system")
+ContainerQueue(messageQueue, "Events queue", "Kafka", "Message queue for events from social network system")
+
+System_Boundary(analyticsSystem, "Analytics") {
+    Container(analyticsService, "Analytics Service", "Go", "Handles events from user actions and each hour stores aggregated information about users to cache")
+    ContainerDb(analyticsDatabase, "Analytics database", "ClickHouse", "Stores analytics information about users")
+    ContainerDb(analyticsCache, "Analytics cache", "Tarantool", "Stores aggregated information about users")
+}
+
+Rel(user, socialNetwork, "User makes request to")
+
+Rel(socialNetwork, messageQueue, "Sends events from social network system")
+Rel(analyticsService, messageQueue, "Subscribes on events from social network system")
+Rel(analyticsService, analyticsDatabase, "Stores events and also aggregates information about users")
+Rel(analyticsService, analyticsCache, "Gets analytical user information, also stores analytical information about users")
+
+Rel(socialNetwork, email, "Sends emails using")
+Rel(email, user, "Sends emails to")
+@enduml
