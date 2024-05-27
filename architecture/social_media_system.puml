@@ -4,26 +4,31 @@
 Person(user, "User", "Social Network User")
 System(analytics, "Analytics", "Stores different analytic information about users")
 System_Ext(email, "E-mail", "An external e-mail system")
-ContainerQueue(messageQueue, "Events queue", "Kafka", "Message queue for events from social network system")
+ContainerQueue(messageQueue, "Events Queue", "Kafka", "Message queue for events from social network system")
 
 System_Boundary(socialNetwork, "Social Network") {
     Container(spa, "Single-Page Application", "Typescript, Nextjs", "Provides the static content and all the social network functionality to users via their web browser")
     Container(api, "Api Gateway", "Go", "Provides social network functionality via API")
 
     Container(filesService, "Files Service", "Go", "Handles files")
-    ContainerDb(filesDatabase, "Files database", "Amazon S3")
+    ContainerDb(filesDatabase, "Files Database", "Amazon S3")
 
-    Container(messagingService, "Messaging service", "Go", "Handles messages")
-    ContainerDb(messagingDatabase, "Messaging database", "PgSQL", "Stores messages")
+    Container(messagingService, "Messaging Service", "Go", "Handles messages")
+    ContainerDb(messagingDatabase, "Messaging Database", "PgSQL", "Stores messages")
 
-    Container(postsService, "Post service", "Go", "Handles posts")
-    ContainerDb(postsDatabase, "Post database", "PgSQL", "Stores posts")
+    Container(postsService, "Post Service", "Go", "Handles posts")
+    ContainerDb(postsDatabase, "Post Database", "PgSQL", "Stores posts")
 
     Container(profilesService, "Profile Service", "Go", "Handles users")
-    ContainerDb(profilesDatabase, "Profile database", "MongoDB", "Stores information about users")
+    ContainerDb(profilesDatabase, "Profile Database", "MongoDB", "Stores information about users")
 
-    Container(relationsService, "Relations service", "Go", "Handles relations")
-    ContainerDb(relationsDatabase, "Relations database", "Neo4j", "Stores relations")
+    Container(relationsService, "Relations Service", "Go", "Handles relations")
+    ContainerDb(relationsDatabase, "Relations Database", "Neo4j", "Stores relations")
+
+    ContainerQueue(postsQueue, "Posts Queue", "Kafka", "Posts queue for newly created posts")
+
+    Container(feedService, "Feed Service", "Go", "Builds feeds for each user. if celebrity updates their feed, update only their posts. For the users subscribed on the celebrity, merge their celebrity subscriptions in fly")
+    ContainerDb(feedDatabase, "Feed Database", "Tarantool", "Stores feeds")
 }
 
 Rel(user, spa, "Uses", "HTTPS")
@@ -35,6 +40,7 @@ Rel(api, messagingService, "Gets data from", "HTTPS")
 Rel(api, postsService, "Gets data from", "HTTPS")
 Rel(api, profilesService, "Gets data from", "HTTPS")
 Rel(api, relationsService, "Gets data from", "HTTPS")
+Rel(api, feedService, "Gets data from", "HTTPS")
 
 Rel(filesService, filesDatabase, "Reads/Writes")
 
@@ -45,6 +51,12 @@ Rel(messagingService, messageQueue, "Sends message events")
 Rel(postsService, postsDatabase, "Reads/Writes")
 Rel(postsService, email, "Sends emails using")
 Rel(postsService, messageQueue, "Sends posts events")
+Rel(postsService, postsQueue, "Sends events about newly created posts")
+
+Rel(feedService, postsService, "Requests posts when there is no posts for the user or older than 10 last posts were requested")
+Rel(feedService, relationsService, "Request subscriptions for the user to build their feed")
+Rel(feedService, feedDatabase, "Reads/Writes")
+Rel(feedService, postsQueue, "Subscribes on posts events")
 
 Rel(profilesService, profilesDatabase, "Reads/Writes")
 Rel(profilesService, email, "Sends emails using")
