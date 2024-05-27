@@ -1,0 +1,19 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+// Replication:
+// - master-slave (one sync + async)
+// - replication factor 3
+//
+// Sharding:
+// - no sharding needed
+
+Table userFeed {
+  user_id integer [primary key]
+  posts JSON [note: 'user feed stores 10 posts in the form of JSON [postObj, postObj, ...]']
+}
+
+Table homeFeed {
+  user_id integer [primary key]
+  posts JSON [note: 'home feed stores 10 posts in the form of JSON [postObj, postObj, ...]']
+}

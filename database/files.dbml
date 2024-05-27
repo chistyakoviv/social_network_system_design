@@ -11,7 +11,7 @@
 Table File {
   id integer [primary key]
   type enum
-  created_at timestamp
+  created_at timestamp [default: `now()`]
 }
 
 Table Image {
@@ -47,6 +47,6 @@ Table Video {
   format varchar
 }
 
-Ref: Image.id > File.id
-Ref: Audio.id > File.id
-Ref: Video.id > File.id
+Ref: Image.id - File.id
+Ref: Audio.id - File.id
+Ref: Video.id - File.id
